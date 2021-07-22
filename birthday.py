@@ -9,8 +9,10 @@ with open('bDay_db.json', 'w')as outfile:
     json.dump(database, outfile)
  '''
 this_day = (datetime.today().strftime('%b %d'))  # this block changes today's date format to MMM DD like i have in my dictionary
+year = (datetime.today().strftime('%Y'))
+day = (datetime.today().strftime('%A'))
 print()
-print("Today's date is : " + this_day)
+print("Today's date is : "+ day + ' ' + this_day + ' ' + year)
 print()
 
 with open("bDay_db.json", "r") as read_file:  # this section opens the Database in read-mode in order to query it
