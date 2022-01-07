@@ -2,6 +2,7 @@ import pprint  # if necessary, this module prints out a more "decent" output
 import json  # a module to store the dictionary as a database that can be read or written to
 from datetime import datetime, timedelta  # importing the datetime module in order to determine the day/time
 import pyinputplus as pyip  # this helps control user input type
+import smtplib. # this module allows us to log in and send emails from our mail box
 
 ''' database = {'Shrek':'Apr 24', 'Fiona':'Apr 25','Donkey':'Apr 26', 'Ginger':'Apr 27'}  # create an initial dictionary, it could also be empty(this is only necessary once)
 
@@ -27,6 +28,16 @@ def tOdAy():
     if this_day in bdays.values():  # if today's date matches a day of the bdays...
         print("Birthday match found 😁 : ")
         print([kv for kv in bdays.items() if kv[1] in this_day],end="")  # ..then match it to the index position one of the dictionary item, n print
+        partyday = [kv for kv in bdays.items() if kv[1] in this_day] # ..then match it to the index position one of the dictionary item, n print
+        #print(partyday)
+        # added a feature to email me when a birthday is found for today, this is also done as a cronjob
+        smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
+        smtpObj.ehlo()
+        smtpObj.starttls()
+        smtpObj.login("myemailtosend@gmail.com","mypassword")
+        smtpObj.sendmail("myemailtosend@gmail.com", "receivingemail@gmail.com", "Subject:Birthday Today!! \nHi Lloyd,\nBirthday found today: {} .".format(partyday))
+        smtpObj.quit()
+        
     else:
         print('No birthday today ! 😕 ')  # if today's nobody's birthday
 
